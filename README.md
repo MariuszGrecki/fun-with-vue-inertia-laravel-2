@@ -4,7 +4,7 @@ Serwer domowy: **192.168.8.194** (z laptopa uzywaj IP, nie localhost).
 
 ```bash
 # uruchom projekt
-./vendor/bin/sail up -d
+docker compose up -d
 
 # aplikacja
 # http://192.168.8.194:8010     <- port 8010, samo IP nie zadziala
@@ -14,7 +14,7 @@ Serwer domowy: **192.168.8.194** (z laptopa uzywaj IP, nie localhost).
 ./vendor/bin/sail npm run dev
 
 # zatrzymaj projekt
-./vendor/bin/sail down
+docker compose down
 ```
 
 ```bash
@@ -50,15 +50,15 @@ Database: app        <- nie postgres
 
 ```bash
 # gdy coś nie działa
-./vendor/bin/sail ps
-./vendor/bin/sail logs -f
-./vendor/bin/sail down
-./vendor/bin/sail up -d
+docker compose ps
+docker compose logs -f
+docker compose down
+docker compose up -d
 ```
 
 ```bash
 # po zmianie .env lub compose.yaml
-./vendor/bin/sail down
-./vendor/bin/sail build --no-cache
-./vendor/bin/sail up -d
+docker compose down
+docker compose build --no-cache
+docker compose up -d
 ```

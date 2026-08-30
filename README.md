@@ -1,11 +1,14 @@
 # Docker — komendy
 
+Serwer domowy: **192.168.8.194** (z laptopa uzywaj IP, nie localhost).
+
 ```bash
 # uruchom projekt
 ./vendor/bin/sail up -d
 
 # aplikacja
-# http://localhost:8010
+# http://192.168.8.194:8010     <- port 8010, samo IP nie zadziala
+# http://192.168.8.194:8030     <- Mailpit (podglad maili)
 
 # Vue/CSS — odpal w drugim terminalu podczas pracy
 ./vendor/bin/sail npm run dev
@@ -38,7 +41,7 @@
 
 ```
 # podlaczenie z DataGrip / TablePlus / DBeaver
-Host:     localhost
+Host:     192.168.8.194   <- IP serwera, nie localhost
 Port:     54320      <- nie 5432
 User:     sail
 Password: password

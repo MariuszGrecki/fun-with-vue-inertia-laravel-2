@@ -32,6 +32,13 @@ export default defineConfig({
         }),
     ]),
     server: {
+        // Aplikacja chodzi na serwerze domowym, a przegladarka jest na laptopie,
+        // wiec Vite musi nasluchiwac na zewnatrz i ogłaszac sie po IP serwera
+        // (domyslnie ogłasza 'localhost', czyli laptop szukalby skryptow u siebie).
+        host: '0.0.0.0',
+        hmr: {
+            host: process.env.VITE_HMR_HOST || '192.168.8.194',
+        },
         watch: {
             ignored: [
                 '**/.agents/**',

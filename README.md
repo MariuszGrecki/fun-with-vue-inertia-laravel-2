@@ -36,6 +36,15 @@
 ./vendor/bin/sail artisan db:show
 ```
 
+```
+# podlaczenie z DataGrip / TablePlus / DBeaver
+Host:     localhost
+Port:     54320      <- nie 5432
+User:     sail
+Password: password
+Database: app        <- nie postgres
+```
+
 ```bash
 # gdy coś nie działa
 ./vendor/bin/sail ps

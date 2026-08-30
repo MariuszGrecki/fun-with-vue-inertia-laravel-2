@@ -10,5 +10,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/hello', [IndexController::class, 'show']);
 
-
 require __DIR__.'/settings.php';

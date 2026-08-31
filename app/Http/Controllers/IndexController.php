@@ -8,7 +8,12 @@ class IndexController extends Controller
 {
     public function index(): Response
     {
-        return inertia('Welcome');
+        return inertia(
+            'Welcome',
+            [
+                'message' => 'hello from laravel',
+            ]
+        );
     }
 
     public function show(): Response

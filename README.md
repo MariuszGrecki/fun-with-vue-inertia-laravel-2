@@ -62,3 +62,7 @@ docker compose down
 docker compose build --no-cache
 docker compose up -d
 ```
+./vendor/bin/sail composer require barryvdh/laravel-debugbar --dev
+
+./vendor/bin/sail composer require --dev barryvdh/laravel-ide-helper
+./vendor/bin/sail artisan ide-helper:models

@@ -19,9 +19,14 @@ docker compose down
 
 ```bash
 # Laravel
+./vendor/bin/sail artisan list
 ./vendor/bin/sail artisan migrate
 ./vendor/bin/sail artisan migrate:fresh --seed
 ./vendor/bin/sail artisan make:controller NazwaController
+./vendor/bin/sail artisan make:model Listing -m
+./vendor/bin/sail artisan make:migration add_fields_to_listings_table
+./vendor/bin/sail artisan migrate:status
+./vendor/bin/sail artisan migrate:rollback --step=1
 ./vendor/bin/sail artisan test
 ./vendor/bin/sail tinker
 ```

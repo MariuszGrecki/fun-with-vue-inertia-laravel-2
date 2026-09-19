@@ -12,6 +12,6 @@ Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/hello', [IndexController::class, 'show']);
 
 Route::resource('listing', ListingController::class)
-    ->only(['index', 'show', 'create', 'store']);
+    ->only(['index', 'show', 'create', 'store', 'edit', 'update']);
 
 require __DIR__.'/settings.php';

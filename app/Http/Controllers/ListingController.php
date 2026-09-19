@@ -58,9 +58,14 @@ class ListingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Listing $listing)
     {
-        //
+        return inertia(
+            'Listing/Edit',
+            [
+                'listing' => $listing,
+            ]
+        );
     }
 
     /**
@@ -68,7 +73,12 @@ class ListingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return inertia(
+            'Listing/Update',
+            [
+                'listing' => $listing,
+            ]
+        );
     }
 
     /**

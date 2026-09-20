@@ -35,12 +35,12 @@ function remove() {
     <div
         v-for="listing in listings"
         :key="listing.id"
-        class="mx-auto mt-4 flex max-w-2xl flex-wrap items-center gap-3 rounded-lg border border-neutral-200 px-5 py-4 transition-colors hover:border-neutral-400"
+        class="border-border hover:border-foreground/40 mx-auto mt-4 flex max-w-2xl flex-wrap items-center gap-3 rounded-lg border px-5 py-4 transition-colors"
     >
         <div class="min-w-0 grow">
             <Link
                 :href="show(listing.id)"
-                class="font-medium text-neutral-900 underline-offset-4 hover:underline"
+                class="text-foreground font-medium underline-offset-4 hover:underline"
             >
                 <ListingAddress :listing="listing" />
             </Link>
@@ -48,7 +48,7 @@ function remove() {
         <div>
             <Link
                 :href="edit(listing.id)"
-                class="inline-flex h-8 items-center rounded-md border border-neutral-300 px-3 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+                class="border-border text-foreground hover:bg-accent hover:text-accent-foreground inline-flex h-8 items-center rounded-md border px-3 text-sm font-medium transition-colors"
             >
                 Edit
             </Link>
@@ -57,7 +57,7 @@ function remove() {
             <Button
                 variant="outline"
                 size="sm"
-                class="border-neutral-300 text-neutral-700 hover:bg-neutral-900 hover:text-white"
+                class="border-border text-foreground hover:bg-primary hover:text-primary-foreground"
                 @click="pending = listing"
             >
                 Destroy

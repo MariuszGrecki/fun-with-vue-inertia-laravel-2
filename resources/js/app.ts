@@ -25,3 +25,5 @@ void createInertiaApp({
 });
 
 initializeFlashToast();
+initializeTheme();
+

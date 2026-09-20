@@ -10,16 +10,18 @@ const props = defineProps<{
     <Head title="Start" />
 
     <main class="mx-auto max-w-xl px-1 py-8">
-        <h1 class="text-3xl font-bold tracking-tight text-neutral-900">Witaj</h1>
-        <p class="mt-3 text-neutral-600">To jest strona główna aplikacji.</p>
+        <h1 class="text-foreground text-3xl font-bold tracking-tight">Witaj</h1>
+        <p class="text-muted-foreground mt-3">
+            To jest strona główna aplikacji.
+        </p>
         <Link
             href="/hello"
-            class="mt-3 inline-block text-sm text-neutral-500 underline-offset-4 transition-colors hover:text-neutral-900 hover:underline"
+            class="text-muted-foreground hover:text-foreground mt-3 inline-block text-sm underline-offset-4 transition-colors hover:underline"
         >
             Linkt to Show
         </Link>
     </main>
-    <div class="mx-auto max-w-xl px-1 text-sm text-neutral-500">
+    <div class="text-muted-foreground mx-auto max-w-xl px-1 text-sm">
         The message is : {{ props.message }}
     </div>
 </template>

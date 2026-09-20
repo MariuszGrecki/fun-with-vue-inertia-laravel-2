@@ -23,10 +23,10 @@ const form = useForm<ListingForm>({
 
     <form
         @submit.prevent="form.submit(store())"
-        class="mx-auto mt-6 grid max-w-2xl gap-4 rounded-lg border border-neutral-200 p-6 sm:grid-cols-6"
+        class="border-border mx-auto mt-6 grid max-w-2xl gap-4 rounded-lg border p-6 sm:grid-cols-6"
     >
         <h1
-            class="border-b border-neutral-200 pb-3 text-2xl font-semibold tracking-tight text-neutral-900 sm:col-span-6"
+            class="border-border text-foreground border-b pb-3 text-2xl font-semibold tracking-tight sm:col-span-6"
         >
             Nowe ogłoszenie
         </h1>

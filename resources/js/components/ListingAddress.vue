@@ -7,9 +7,9 @@ const props = defineProps<{
 </script>
 
 <template>
-    <span class="text-neutral-900">
+    <span class="text-foreground">
         {{ listing.street }} {{ listing.street_nr }},
-        <span class="text-neutral-500">{{ listing.city }}</span>
+        <span class="text-muted-foreground">{{ listing.city }}</span>
         <span class="ml-1 font-semibold tabular-nums">{{ listing.price }} zł</span>
     </span>
 </template>

@@ -71,21 +71,24 @@ class ListingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ListingRequest $request, Listing $listing)
     {
-        return inertia(
-            'Listing/Update',
-            [
-                'listing' => $listing,
-            ]
-        );
+        $listing->update($request->validated());
+        
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was changed!']);
+
+        return redirect()->route('listing.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Listing $listing)
     {
-        //
+        $listing->delete();
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was deleted!']);
+
+        return redirect()->back();
     }
 }

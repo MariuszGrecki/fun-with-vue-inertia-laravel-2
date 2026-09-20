@@ -25,4 +25,3 @@ void createInertiaApp({
 });
 
 initializeFlashToast();
-

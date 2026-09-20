@@ -1,18 +1,35 @@
 <script setup lang="ts">
-    import { Link } from '@inertiajs/vue3';
-    import { ref } from 'vue';
-    import { Toaster } from '@/components/ui/sonner';
+import { Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { Toaster } from '@/components/ui/sonner';
 
-    const timer = ref<number>(0);
-    setInterval(() => timer.value++ , 1000)
 </script>
 
 <template>
-    <div>
-        <Link href="/"> Link to MainPage</Link>
-        <Link href="/hello"> Link to Show Page</Link>
-        The Page with time {{ timer }};
+    <div
+        class="mx-auto min-h-screen max-w-4xl bg-white px-6 py-6 text-neutral-900"
+    >
+        <Link
+            href="/"
+            class="mr-5 text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
+        >
+            Link to MainPage
+        </Link>
+        <Link
+            href="/hello"
+            class="mr-5 text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
+        >
+            Link to Show Page
+        </Link>
+        <Link
+            href="/listing"
+            class="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
+        >
+            Link to Listing Page
+        </Link>
+
         <slot>Default</slot>
+
         <Toaster />
     </div>
 </template>

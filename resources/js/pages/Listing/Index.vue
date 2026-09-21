@@ -6,6 +6,7 @@ import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import ListingAddress from '@/components/ListingAddress.vue';
 import { Button } from '@/components/ui/button';
 import { destroy, edit, show } from '@/routes/listing';
+import ListingOffer from '@/components/ListingOffer.vue';
 
 const props = defineProps<{
     listings: Listing[];

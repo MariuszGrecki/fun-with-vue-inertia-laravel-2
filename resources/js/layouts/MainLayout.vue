@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { useAppearance } from '@/composables/useAppearance';
 import UserInfo from '@/components/UserInfo.vue';
 import { login, logout } from '@/routes/auth';
+import { create as register } from '@/routes/user-account';
 
 const { resolvedAppearance, updateAppearance } = useAppearance();
 const page = usePage();
@@ -44,9 +45,14 @@ const user = computed(() => page.props.auth.user);
                     Wyloguj
                 </Link>
             </div>
-            <Link v-else :href="login()" class="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors">
-                Zaloguj
-            </Link>
+            <div v-else class="flex items-center gap-3">
+                <Link :href="login()" class="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors">
+                    Zaloguj
+                </Link>
+                <Link :href="register()" class="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors">
+                    Register
+                </Link>
+            </div>
         </nav>
 
         <slot>Default</slot>

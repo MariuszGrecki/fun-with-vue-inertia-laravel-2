@@ -11,6 +11,14 @@ use Inertia\Inertia;
 class AuthController extends Controller
 {
     /**
+     * Show the login form.
+     */
+    public function create()
+    {
+        return inertia('MyAuth/Login');
+    }
+
+    /**
      * Log the user in.
      */
     public function store(AuthRequest $request)

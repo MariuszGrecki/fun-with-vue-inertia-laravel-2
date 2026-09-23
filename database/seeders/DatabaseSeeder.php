@@ -23,5 +23,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user->listings()->saveMany(Listing::factory(10)->make());
+
+        $user2 = User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test2@example.com',
+        ]);
     }
 }

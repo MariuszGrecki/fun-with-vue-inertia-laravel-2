@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Listing;
 use App\Http\Requests\ListingRequest;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class ListingController extends Controller
@@ -27,6 +28,8 @@ class ListingController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create');   
+
         return inertia('Listing/Create');
     }
 
@@ -35,7 +38,7 @@ class ListingController extends Controller
      */
     public function store(ListingRequest $request)
     {
-        Listing::create($request->validated());
+        $request->user()->listings()->create($request->validated());
         
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was created!']);
 
@@ -47,6 +50,8 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+        Gate::authorize('view', $listing);   
+
         return inertia(
             'Listing/Show',
             [

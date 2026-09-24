@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import type { Listing } from '@/types';
+import type { Listing, Paginated } from '@/types';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import ListingAddress from '@/components/ListingAddress.vue';
 import { Button } from '@/components/ui/button';
 import { destroy, edit, show } from '@/routes/listing';
 import ListingOffer from '@/components/ListingOffer.vue';
+import Pagination from '@/components/Pagination.vue';
+import Filters from '@/components/Filters.vue';
 
 const props = defineProps<{
-    listings: Listing[];
+    listings: Paginated<Listing>;
 }>();
 
 const pending = ref<Listing | null>(null);
@@ -33,8 +35,10 @@ function remove() {
 <template>
     <Head title="Ogłoszenia" />
 
+    <Filters/>
+    
     <div
-        v-for="listing in listings"
+        v-for="listing in listings.data"
         :key="listing.id"
         class="border-border hover:border-foreground/40 mx-auto mt-4 flex max-w-2xl flex-wrap items-center gap-3 rounded-lg border px-5 py-4 transition-colors"
     >
@@ -65,7 +69,7 @@ function remove() {
             </Button>
         </div>
     </div>
-
+    <Pagination :paginator="listings" />
     <ConfirmDialog
         :open="pending !== null"
         :processing="processing"

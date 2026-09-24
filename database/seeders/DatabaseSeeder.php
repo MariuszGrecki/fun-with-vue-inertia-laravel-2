@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'role' => 'admin'
         ]);
 
         $user->listings()->saveMany(Listing::factory(10)->make());
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $user2 = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test2@example.com',
+            'role' => 'employee'
         ]);
     }
 }

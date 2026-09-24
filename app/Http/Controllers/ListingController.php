@@ -18,7 +18,8 @@ class ListingController extends Controller
         return inertia(
             'Listing/Index',
             [
-                'listings' => Listing::all(),
+                'listings' => Listing::orderByDesc('created_at')
+                    ->paginate(5)
             ]
         );
     }
@@ -28,7 +29,7 @@ class ListingController extends Controller
      */
     public function create()
     {
-        Gate::authorize('create');   
+        Gate::authorize('create', Listing::class);   
 
         return inertia('Listing/Create');
     }
@@ -38,6 +39,8 @@ class ListingController extends Controller
      */
     public function store(ListingRequest $request)
     {
+        Gate::authorize('create', Listing::class);
+
         $request->user()->listings()->create($request->validated());
         
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was created!']);
@@ -65,6 +68,8 @@ class ListingController extends Controller
      */
     public function edit(Listing $listing)
     {
+        Gate::authorize('update', $listing);   
+
         return inertia(
             'Listing/Edit',
             [
@@ -78,6 +83,8 @@ class ListingController extends Controller
      */
     public function update(ListingRequest $request, Listing $listing)
     {
+         Gate::authorize('update', $listing);   
+
         $listing->update($request->validated());
         
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was changed!']);
@@ -90,6 +97,8 @@ class ListingController extends Controller
      */
     public function destroy(Listing $listing)
     {
+        Gate::authorize('delete', $listing);   
+
         $listing->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was deleted!']);

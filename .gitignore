@@ -30,3 +30,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Osobisty plan pracy, nie do repo
+/PLAN.md
+/PLAN-JAVA.md

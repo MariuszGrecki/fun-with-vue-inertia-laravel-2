@@ -9,14 +9,18 @@ const props = withDefaults(
     { filters: () => ({}) },
 );
 
-const filterForm = useForm<ListingFilters>({
-    priceFrom: props.filters.priceFrom ?? null,
-    priceTo: props.filters.priceTo ?? null,
-    beds: props.filters.beds ?? null,
-    baths: props.filters.baths ?? null,
-    areaFrom: props.filters.areaFrom ?? null,
-    areaTo: props.filters.areaTo ?? null,
-});
+const empty: ListingFilters = {
+    priceFrom: null,
+    priceTo: null,
+    beds: null,
+    baths: null,
+    areaFrom: null,
+    areaTo: null,
+};
+
+const filterForm = useForm<ListingFilters>({ ...empty, ...props.filters });
+
+filterForm.defaults(empty);
 
 const visit = () => {
     filterForm
@@ -54,7 +58,7 @@ const clear = () => {
                     class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 relative h-9 w-28 rounded-md rounded-r-none border bg-transparent px-3 text-sm shadow-xs transition-[color,box-shadow] outline-none focus-visible:z-10 focus-visible:ring-[3px]"
                 />
                 <input
-                    v-model="filterForm.priceTo"
+                    v-model.number="filterForm.priceTo"
                     type="text"
                     placeholder="Price to"
                     class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 relative -ml-px h-9 w-28 rounded-md rounded-l-none border bg-transparent px-3 text-sm shadow-xs transition-[color,box-shadow] outline-none focus-visible:z-10 focus-visible:ring-[3px]"
@@ -100,7 +104,7 @@ const clear = () => {
                 Filter
             </button>
             <button
-                type="reset"
+                type="button"
                 @click="clear"
                 class="border-input hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50 inline-flex h-9 shrink-0 items-center justify-center rounded-md border bg-transparent px-4 text-sm font-medium whitespace-nowrap shadow-xs transition-colors outline-none focus-visible:ring-[3px]"
             >

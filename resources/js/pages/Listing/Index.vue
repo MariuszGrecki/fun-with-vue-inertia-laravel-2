@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import type { Listing, Paginated } from '@/types';
+import type { Listing, ListingFilters, Paginated } from '@/types';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import ListingAddress from '@/components/ListingAddress.vue';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import Filters from '@/components/Filters.vue';
 
 const props = defineProps<{
     listings: Paginated<Listing>;
+    filters?: Partial<ListingFilters>;    
 }>();
 
 const pending = ref<Listing | null>(null);
@@ -35,8 +36,8 @@ function remove() {
 <template>
     <Head title="Ogłoszenia" />
 
-    <Filters/>
-    
+    <Filters :filters="filters"/>
+
     <div
         v-for="listing in listings.data"
         :key="listing.id"

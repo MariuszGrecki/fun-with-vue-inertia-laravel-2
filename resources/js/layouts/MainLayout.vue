@@ -50,6 +50,7 @@ const navLink =
 
                 <div v-if="user" class="flex items-center gap-2">
                     <UserInfo :user="user" />
+                    <Link href="/realtor/listing" :class="navLink">My Listings</Link>
                     <Link
                         :href="logout()"
                         as="button"

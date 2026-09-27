@@ -1,60 +1,117 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import { Listing } from '@/types';
 import { destroy, edit, show } from '@/routes/listing';
 import ListingAddress from '@/components/ListingAddress.vue';
 import ListingPrice from '@/components/ListingPrice.vue';
+import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import { Button } from '@/components/ui/button';
 
 defineProps<{
     listings: Listing[];
 }>();
 
+const pending = ref<Listing | null>(null);
+const processing = ref(false);
+
+function remove() {
+    if (!pending.value) {
+        return;
+    }
+
+    router.delete(destroy(pending.value.id), {
+        onStart: () => (processing.value = true),
+        onFinish: () => {
+            processing.value = false;
+            pending.value = null;
+        },
+    });
+}
 </script>
 
 <template>
-    <div class="mx-auto max-w-2xl">
-        <h1 class="text-foreground mt-6 text-2xl font-semibold tracking-tight">Your listings</h1>
+    <div class="mx-auto max-w-3xl">
+        <header class="mt-6 flex flex-wrap items-baseline justify-between gap-3">
+            <h1 class="text-foreground text-2xl font-semibold tracking-tight">Your listings</h1>
+            <span class="text-muted-foreground text-sm tabular-nums">
+                {{ listings.length }}
+                {{ listings.length === 1 ? 'listing' : 'listings' }}
+            </span>
+        </header>
 
         <section
-            class="border-border bg-card text-muted-foreground mt-4 rounded-lg border p-3 text-sm"
+            class="border-border bg-muted/40 text-muted-foreground mt-4 rounded-lg border border-dashed p-3 text-sm"
         >
             Filters
         </section>
 
-        <section class="text-muted-foreground mt-4 space-y-3 text-sm">
-            <div
+        <section class="border-border bg-card divide-border mt-4 divide-y rounded-lg border">
+            <article
                 v-for="listing in listings"
                 :key="listing.id"
-                class="border-border hover:border-foreground/40 flex flex-wrap items-center gap-3 rounded-lg border px-5 py-4 transition-colors"
+                class="hover:bg-accent/40 flex flex-wrap items-center gap-4 px-5 py-4 transition-colors first:rounded-t-lg last:rounded-b-lg"
             >
-                <div class="min-w-0 grow space-y-1">
+                <div class="min-w-0 grow space-y-1.5">
                     <div class="text-lg leading-none">
                         <ListingPrice :price="listing.price" />
                     </div>
-                    <div class="text-sm">
+
+                    <div class="text-muted-foreground flex flex-wrap items-center gap-x-2 text-xs">
+                        <span class="bg-muted rounded px-1.5 py-0.5 tabular-nums">
+                            {{ listing.beds }} beds
+                        </span>
+                        <span class="bg-muted rounded px-1.5 py-0.5 tabular-nums">
+                            {{ listing.baths }} baths
+                        </span>
+                        <span class="bg-muted rounded px-1.5 py-0.5 tabular-nums">
+                            {{ listing.area }} m²
+                        </span>
+                    </div>
+
+                    <div class="text-muted-foreground text-sm">
                         <ListingAddress :listing="listing" />
                     </div>
                 </div>
-                <div>
+
+                <div class="flex shrink-0 items-center gap-2">
                     <Link
                         :href="edit(listing.id)"
-                        class="border-border text-foreground hover:bg-accent hover:text-accent-foreground inline-flex h-8 items-center rounded-md border px-3 text-sm font-medium transition-colors"
+                        class="text-muted-foreground hover:bg-accent hover:text-foreground inline-flex h-8 items-center rounded-md px-3 text-sm font-medium transition-colors"
                     >
                         Edit
                     </Link>
-                </div>
-                <div>
                     <Button
-                        :href="destroy(listing.id)"
-                        variant="outline"
+                        variant="ghost"
                         size="sm"
-                        class="border-border text-foreground hover:bg-primary hover:text-primary-foreground"
+                        class="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                        @click="pending = listing"
                     >
                         Destroy
                     </Button>
                 </div>
-            </div>
+            </article>
+
+            <p
+                v-if="listings.length === 0"
+                class="text-muted-foreground px-5 py-10 text-center text-sm"
+            >
+                Nie masz jeszcze żadnych ogłoszeń.
+            </p>
         </section>
     </div>
+    <ConfirmDialog
+        :open="pending !== null"
+        :processing="processing"
+        title="Usunąć ogłoszenie?"
+        description="Ogłoszenia nie da się przywrócić po usunięciu."
+        confirm-label="Usuń"
+        confirm-variant="default"
+        @update:open="
+            (open) => {
+                if (!open) pending = null;
+            }
+        "
+        @confirm="remove"
+    />
 </template>

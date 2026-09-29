@@ -22,3 +22,7 @@ export interface ListingFilters {
     areaFrom: number | null;
     areaTo: number | null;
 }
+
+export interface RealtorFilters {
+    deleted: boolean;
+}

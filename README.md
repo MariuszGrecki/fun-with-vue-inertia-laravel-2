@@ -12,6 +12,7 @@ docker compose up -d
 
 # Vue/CSS — odpal w drugim terminalu podczas pracy
 ./vendor/bin/sail npm run dev
+./vendor/bin/sail restart
 
 # zatrzymaj projekt
 docker compose down

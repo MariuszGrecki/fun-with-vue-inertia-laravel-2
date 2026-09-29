@@ -12,7 +12,7 @@ class ListingPolicy
     // {
     //     return $user->isAdmin() ? true : null;
     // }
-    
+
     /**
      * Determine whether the user can view any models.
      */
@@ -50,7 +50,7 @@ class ListingPolicy
      */
     public function delete(User $user, Listing $listing): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -58,7 +58,7 @@ class ListingPolicy
      */
     public function restore(User $user, Listing $listing): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -66,6 +66,6 @@ class ListingPolicy
      */
     public function forceDelete(User $user, Listing $listing): bool
     {
-        return false;
+        return true;
     }
 }

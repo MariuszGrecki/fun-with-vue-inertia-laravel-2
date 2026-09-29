@@ -15,7 +15,14 @@ class RealtorListingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'deleted' => ['boolean']
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'deleted' => $this->boolean('deleted'),
+        ]);
     }
 }

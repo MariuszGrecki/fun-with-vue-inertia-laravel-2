@@ -2,11 +2,13 @@
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { Listing } from '@/types';
-import { destroy, edit, show } from '@/routes/listing';
+import { edit, show } from '@/routes/listing';
 import ListingAddress from '@/components/ListingAddress.vue';
 import ListingPrice from '@/components/ListingPrice.vue';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import { Button } from '@/components/ui/button';
+import { destroy } from '@/routes/realtor/listing';
+import RealtorFilters from './Index/Components/RealtorFilters.vue';
 
 defineProps<{
     listings: Listing[];
@@ -40,10 +42,8 @@ function remove() {
             </span>
         </header>
 
-        <section
-            class="border-border bg-muted/40 text-muted-foreground mt-4 rounded-lg border border-dashed p-3 text-sm"
-        >
-            Filters
+        <section>
+            <RealtorFilters/>
         </section>
 
         <section class="border-border bg-card divide-border mt-4 divide-y rounded-lg border">

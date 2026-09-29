@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static Builder<Listing> mostRecent()
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class Listing extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'beds',
@@ -56,6 +57,9 @@ class Listing extends Model
             )->when(
                 $filters['areaTo'] ?? null,
                 fn ($query, $value) => $query->where('area', '<=', $value)
+            )->when(
+                $filters['deleted'] ?? null,
+                fn ($query) => $query->withTrashed()
             );
     }
 }

@@ -36,7 +36,7 @@ class ListingController extends Controller
      */
     public function create()
     {
-        Gate::authorize('create', Listing::class);   
+        Gate::authorize('create', Listing::class);
 
         return inertia('Listing/Create');
     }
@@ -49,7 +49,7 @@ class ListingController extends Controller
         Gate::authorize('create', Listing::class);
 
         $request->user()->listings()->create($request->validated());
-        
+
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was created!']);
 
         return redirect()->route('listing.index');
@@ -60,7 +60,7 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        Gate::authorize('view', $listing);   
+        Gate::authorize('view', $listing);
 
         return inertia(
             'Listing/Show',
@@ -75,7 +75,7 @@ class ListingController extends Controller
      */
     public function edit(Listing $listing)
     {
-        Gate::authorize('update', $listing);   
+        Gate::authorize('update', $listing);
 
         return inertia(
             'Listing/Edit',
@@ -90,26 +90,12 @@ class ListingController extends Controller
      */
     public function update(ListingRequest $request, Listing $listing)
     {
-         Gate::authorize('update', $listing);   
+        Gate::authorize('update', $listing);
 
         $listing->update($request->validated());
-        
+
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was changed!']);
 
         return redirect()->route('listing.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Listing $listing)
-    {
-        Gate::authorize('delete', $listing);   
-
-        $listing->delete();
-
-        Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was deleted!']);
-
-        return redirect()->back();
     }
 }

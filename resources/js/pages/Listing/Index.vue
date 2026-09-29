@@ -5,32 +5,16 @@ import type { Listing, ListingFilters, Paginated } from '@/types';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import ListingAddress from '@/components/ListingAddress.vue';
 import { Button } from '@/components/ui/button';
-import { destroy, edit, show } from '@/routes/listing';
+import { edit, show } from '@/routes/listing';
 import ListingOffer from '@/components/ListingOffer.vue';
 import Pagination from '@/components/Pagination.vue';
 import Filters from '@/components/Filters.vue';
 
 const props = defineProps<{
     listings: Paginated<Listing>;
-    filters?: Partial<ListingFilters>;    
+    filters?: Partial<ListingFilters>;
 }>();
 
-const pending = ref<Listing | null>(null);
-const processing = ref(false);
-
-function remove() {
-    if (!pending.value) {
-        return;
-    }
-
-    router.delete(destroy(pending.value.id), {
-        onStart: () => (processing.value = true),
-        onFinish: () => {
-            processing.value = false;
-            pending.value = null;
-        },
-    });
-}
 </script>
 
 <template>
@@ -59,30 +43,6 @@ function remove() {
                 Edit
             </Link>
         </div>
-        <div>
-            <Button
-                variant="outline"
-                size="sm"
-                class="border-border text-foreground hover:bg-primary hover:text-primary-foreground"
-                @click="pending = listing"
-            >
-                Destroy
-            </Button>
-        </div>
     </div>
     <Pagination :paginator="listings" />
-    <ConfirmDialog
-        :open="pending !== null"
-        :processing="processing"
-        title="Usunąć ogłoszenie?"
-        description="Ogłoszenia nie da się przywrócić po usunięciu."
-        confirm-label="Usuń"
-        confirm-variant="default"
-        @update:open="
-            (open) => {
-                if (!open) pending = null;
-            }
-        "
-        @confirm="remove"
-    />
 </template>

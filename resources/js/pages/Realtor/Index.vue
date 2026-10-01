@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import { Listing } from '@/types';
+import type { Listing, Paginated, RealtorFilters as Filters } from '@/types';
 import { edit, show } from '@/routes/listing';
 import ListingAddress from '@/components/ListingAddress.vue';
 import ListingPrice from '@/components/ListingPrice.vue';
@@ -9,9 +9,11 @@ import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import { Button } from '@/components/ui/button';
 import { destroy } from '@/routes/realtor/listing';
 import RealtorFilters from './Index/Components/RealtorFilters.vue';
+import Pagination from '@/components/Pagination.vue';
 
 defineProps<{
-    listings: Listing[];
+    listings: Paginated<Listing>;
+    filters: Partial<Filters>;
 }>();
 
 const pending = ref<Listing | null>(null);
@@ -37,18 +39,18 @@ function remove() {
         <header class="mt-6 flex flex-wrap items-baseline justify-between gap-3">
             <h1 class="text-foreground text-2xl font-semibold tracking-tight">Your listings</h1>
             <span class="text-muted-foreground text-sm tabular-nums">
-                {{ listings.length }}
-                {{ listings.length === 1 ? 'listing' : 'listings' }}
+                {{ listings.data.length }}
+                {{ listings.data.length === 1 ? 'listing' : 'listings' }}
             </span>
         </header>
 
         <section>
-            <RealtorFilters/>
+            <RealtorFilters :filters="filters" />
         </section>
 
         <section class="border-border bg-card divide-border mt-4 divide-y rounded-lg border">
             <article
-                v-for="listing in listings"
+                v-for="listing in listings.data"
                 :key="listing.id"
                 class="hover:bg-accent/40 flex flex-wrap items-center gap-4 px-5 py-4 transition-colors first:rounded-t-lg last:rounded-b-lg"
             >
@@ -93,12 +95,13 @@ function remove() {
             </article>
 
             <p
-                v-if="listings.length === 0"
+                v-if="listings.data.length === 0"
                 class="text-muted-foreground px-5 py-10 text-center text-sm"
             >
                 Nie masz jeszcze żadnych ogłoszeń.
             </p>
         </section>
+            <Pagination :paginator="listings" />
     </div>
     <ConfirmDialog
         :open="pending !== null"

@@ -23,6 +23,16 @@ export interface ListingFilters {
     areaTo: number | null;
 }
 
+export type SortBy = 'created_at' | 'price';
+export type SortOrder = 'asc' | 'desc';
+
+export interface SortOption {
+    label: string;
+    value: SortOrder;
+}
+
 export interface RealtorFilters {
     deleted: boolean;
+    by: SortBy;
+    order: SortOrder;
 }

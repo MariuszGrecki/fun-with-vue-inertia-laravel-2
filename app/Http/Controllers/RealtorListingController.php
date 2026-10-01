@@ -11,13 +11,16 @@ class RealtorListingController extends Controller
 {
     public function index(RealtorListingRequest $request)
     {
+        $filters = $request->validated();
+
         $query = $request->user()->listings()
-            ->mostRecent()
             ->filter($request->validated())
-            ->get();
+            ->paginate(5)
+            ->withQueryString();
 
         return inertia('Realtor/Index',
             [
+                'filters' => $filters,
                 'listings' => $query
             ]
         );

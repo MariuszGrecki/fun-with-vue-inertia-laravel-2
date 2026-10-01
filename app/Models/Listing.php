@@ -28,6 +28,11 @@ class Listing extends Model
         'price',
     ];
 
+    protected $sortable = [
+        'price',
+        'created_at'
+    ];
+
     public function owner(): BelongsTo {
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -39,6 +44,10 @@ class Listing extends Model
 
     #[Scope]
     protected function filter(Builder $query, array $filters): Builder {
+        $sortBy = in_array($filters['by'] ?? null, $this->sortable, true)
+            ? $filters['by']
+            : null;
+
         return $query->when(
                 $filters['priceFrom'] ?? null,
                 fn ($query, $value) => $query->where('price', '>=', $value)
@@ -60,6 +69,9 @@ class Listing extends Model
             )->when(
                 $filters['deleted'] ?? null,
                 fn ($query) => $query->withTrashed()
+            )->when(
+                $sortBy,
+                fn ($query, $value) => $query->orderBy($value, ($filters['order'] ?? 'desc') === 'asc' ? 'asc' : 'desc')
             );
     }
 }

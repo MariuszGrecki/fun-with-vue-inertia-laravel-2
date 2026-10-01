@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class RealtorListingRequest extends FormRequest
 {
@@ -15,7 +17,9 @@ class RealtorListingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'deleted' => ['boolean']
+            'deleted' => ['boolean'],
+            'by' => ['sometimes', Rule::in(['created_at', 'price'])],
+            'order' => ['sometimes',  Rule::in(['asc', 'desc'])]
         ];
     }
 

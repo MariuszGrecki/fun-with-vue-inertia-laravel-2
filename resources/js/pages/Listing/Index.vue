@@ -5,7 +5,7 @@ import type { Listing, ListingFilters, Paginated } from '@/types';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import ListingAddress from '@/components/ListingAddress.vue';
 import { Button } from '@/components/ui/button';
-import { edit, show } from '@/routes/listing';
+import { show } from '@/routes/listing';
 import ListingOffer from '@/components/ListingOffer.vue';
 import Pagination from '@/components/Pagination.vue';
 import Filters from '@/components/Filters.vue';
@@ -33,14 +33,6 @@ const props = defineProps<{
                 class="text-foreground font-medium underline-offset-4 hover:underline"
             >
                 <ListingAddress :listing="listing" />
-            </Link>
-        </div>
-        <div>
-            <Link
-                :href="edit(listing.id)"
-                class="border-border text-foreground hover:bg-accent hover:text-accent-foreground inline-flex h-8 items-center rounded-md border px-3 text-sm font-medium transition-colors"
-            >
-                Edit
             </Link>
         </div>
     </div>

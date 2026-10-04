@@ -7,8 +7,8 @@ Serwer domowy: **192.168.8.194** (z laptopa uzywaj IP, nie localhost).
 docker compose up -d
 
 # aplikacja
-# http://192.168.8.194:8010     <- port 8010, samo IP nie zadziala
-# http://192.168.8.194:8030     <- Mailpit (podglad maili)
+# http://192.168.8.194:47080    <- port 47080, samo IP nie zadziala
+# http://192.168.8.194:47825    <- Mailpit (podglad maili)
 
 # Vue/CSS — odpal w drugim terminalu podczas pracy
 ./vendor/bin/sail npm run dev
@@ -48,7 +48,7 @@ docker compose down
 ```
 # podlaczenie z DataGrip / TablePlus / DBeaver
 Host:     192.168.8.194   <- IP serwera, nie localhost
-Port:     54320      <- nie 5432
+Port:     47432      <- nie 5432
 User:     sail
 Password: password
 Database: app        <- nie postgres

@@ -2,12 +2,12 @@
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import type { Listing, Paginated, RealtorFilters as Filters } from '@/types';
-import { edit, show } from '@/routes/listing';
+import { show } from '@/routes/listing';
 import ListingAddress from '@/components/ListingAddress.vue';
 import ListingPrice from '@/components/ListingPrice.vue';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import { Button } from '@/components/ui/button';
-import { destroy } from '@/routes/realtor/listing';
+import { destroy, edit, restore } from '@/routes/realtor/listing';
 import RealtorFilters from './Index/Components/RealtorFilters.vue';
 import Pagination from '@/components/Pagination.vue';
 
@@ -52,7 +52,8 @@ function remove() {
             <article
                 v-for="listing in listings.data"
                 :key="listing.id"
-                class="hover:bg-accent/40 flex flex-wrap items-center gap-4 px-5 py-4 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                class="hover:bg-accent/40 flex flex-wrap items-center gap-4 px-5 py-4 transition-colors first:rounded-t-lg last:rounded-b-lg "
+                :class="{ 'opacity-50': listing.deleted_at }"
             >
                 <div class="min-w-0 grow space-y-1.5">
                     <div class="text-lg leading-none">
@@ -69,6 +70,12 @@ function remove() {
                         <span class="bg-muted rounded px-1.5 py-0.5 tabular-nums">
                             {{ listing.area }} m²
                         </span>
+                        <span
+                            v-if="listing.deleted_at"
+                            class="bg-destructive/10 text-destructive rounded px-1.5 py-0.5 text-xs font-medium"
+                        >
+                            Deleted
+                        </span>
                     </div>
 
                     <div class="text-muted-foreground text-sm">
@@ -77,6 +84,13 @@ function remove() {
                 </div>
 
                 <div class="flex shrink-0 items-center gap-2">
+                    <Link
+                        :href="show(listing.id)"
+                        class="text-muted-foreground hover:bg-accent hover:text-foreground inline-flex h-8 items-center rounded-md px-3 text-sm font-medium transition-colors"
+                        v-if="!listing.deleted_at"
+                    >
+                        Preview
+                    </Link>
                     <Link
                         :href="edit(listing.id)"
                         class="text-muted-foreground hover:bg-accent hover:text-foreground inline-flex h-8 items-center rounded-md px-3 text-sm font-medium transition-colors"
@@ -88,9 +102,17 @@ function remove() {
                         size="sm"
                         class="text-destructive hover:bg-destructive/10 hover:text-destructive"
                         @click="pending = listing"
+                        v-if="!listing.deleted_at"
                     >
                         Destroy
                     </Button>
+                    <Link
+                        :href="restore(listing.id)"
+                        class="text-muted-foreground hover:bg-accent hover:text-foreground inline-flex h-8 items-center rounded-md px-3 text-sm font-medium transition-colors"
+                        v-else
+                    >
+                        Restore
+                    </Link>
                 </div>
             </article>
 

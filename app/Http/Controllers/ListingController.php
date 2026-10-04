@@ -69,33 +69,4 @@ class ListingController extends Controller
             ]
         );
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Listing $listing)
-    {
-        Gate::authorize('update', $listing);
-
-        return inertia(
-            'Listing/Edit',
-            [
-                'listing' => $listing,
-            ]
-        );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(ListingRequest $request, Listing $listing)
-    {
-        Gate::authorize('update', $listing);
-
-        $listing->update($request->validated());
-
-        Inertia::flash('toast', ['type' => 'success', 'message' => 'Listing was changed!']);
-
-        return redirect()->route('listing.index');
-    }
 }

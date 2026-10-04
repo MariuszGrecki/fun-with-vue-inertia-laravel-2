@@ -2,7 +2,7 @@
 import { Head, useForm } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
-import { update } from '@/routes/listing';
+import { update } from '@/routes/realtor/listing';
 import type { Listing, ListingForm } from '@/types';
 import ListingFormFields from '@/components/ListingFormFields.vue';
 

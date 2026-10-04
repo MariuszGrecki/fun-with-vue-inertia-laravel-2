@@ -10,6 +10,7 @@ export interface Listing {
     price: number;
     created_at: string;
     updated_at: string;
+    deleted_at: string | null
 }
 
 export type ListingForm = Omit<Listing, 'id' | 'created_at' | 'updated_at'>;

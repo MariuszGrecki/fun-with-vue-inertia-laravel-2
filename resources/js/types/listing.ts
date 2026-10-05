@@ -1,3 +1,11 @@
+export interface ListingImage {
+    id: number;
+    listing_id: number;
+    filename: string;
+    src: string;
+    created_at: string;
+    updated_at: string;
+}
 export interface Listing {
     id: number;
     beds: number;
@@ -11,6 +19,8 @@ export interface Listing {
     created_at: string;
     updated_at: string;
     deleted_at: string | null
+    images?: ListingImage[];
+    images_count?: number;
 }
 
 export type ListingForm = Omit<Listing, 'id' | 'created_at' | 'updated_at'>;

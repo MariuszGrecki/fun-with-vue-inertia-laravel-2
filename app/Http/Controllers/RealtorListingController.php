@@ -17,6 +17,7 @@ class RealtorListingController extends Controller
 
         $query = $request->user()->listings()
             ->filter($request->validated())
+            ->withCount('images')
             ->paginate(5)
             ->withQueryString();
 

@@ -8,6 +8,7 @@ import ListingPrice from '@/components/ListingPrice.vue';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import { Button } from '@/components/ui/button';
 import { destroy, edit, restore } from '@/routes/realtor/listing';
+import { create as createImage } from '@/routes/realtor/listing/image';
 import RealtorFilters from './Index/Components/RealtorFilters.vue';
 import Pagination from '@/components/Pagination.vue';
 
@@ -96,6 +97,13 @@ function remove() {
                         class="text-muted-foreground hover:bg-accent hover:text-foreground inline-flex h-8 items-center rounded-md px-3 text-sm font-medium transition-colors"
                     >
                         Edit
+                    </Link>
+                    <Link
+                        :href="createImage(listing.id)"
+                        class="text-muted-foreground hover:bg-accent hover:text-foreground inline-flex h-8 items-center rounded-md px-3 text-sm font-medium transition-colors"
+                        v-if="!listing.deleted_at"
+                    >
+                        Images ({{ listing.images_count }})
                     </Link>
                     <Button
                         variant="ghost"

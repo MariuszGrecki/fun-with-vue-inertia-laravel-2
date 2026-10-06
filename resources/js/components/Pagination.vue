@@ -5,7 +5,6 @@ import type { Paginated } from '@/types';
 defineProps<{
     paginator: Paginated<unknown>;
 }>();
-
 </script>
 
 <template>
@@ -25,7 +24,7 @@ defineProps<{
                     ? 'border-foreground bg-foreground text-background'
                     : link.url
                       ? 'border-border text-foreground hover:bg-accent hover:text-accent-foreground'
-                      : 'border-transparent text-muted-foreground'
+                      : 'text-muted-foreground border-transparent'
             "
             v-html="link.label"
         />

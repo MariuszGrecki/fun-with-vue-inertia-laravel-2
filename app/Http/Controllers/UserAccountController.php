@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserAccountRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class UserAccountController extends Controller
 {
     /**
      * Show the registration form.
      */
-    public function create()
+    public function create(): Response
     {
         return inertia('UserAccount/Create');
     }
@@ -20,7 +22,7 @@ class UserAccountController extends Controller
     /**
      * Create the account and log the user in.
      */
-    public function store(UserAccountRequest $request)
+    public function store(UserAccountRequest $request): RedirectResponse
     {
         $user = User::create($request->validated());
 

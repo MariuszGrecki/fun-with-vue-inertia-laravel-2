@@ -18,12 +18,20 @@ export interface Listing {
     price: number;
     created_at: string;
     updated_at: string;
-    deleted_at: string | null
+    deleted_at: string | null;
     images?: ListingImage[];
     images_count?: number;
 }
 
-export type ListingForm = Omit<Listing, 'id' | 'created_at' | 'updated_at'>;
+export type ListingForm = Omit<
+    Listing,
+    | 'id'
+    | 'created_at'
+    | 'updated_at'
+    | 'deleted_at'
+    | 'images'
+    | 'images_count'
+>;
 
 export interface ListingFilters {
     priceFrom: number | null;

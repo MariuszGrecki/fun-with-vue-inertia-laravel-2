@@ -12,18 +12,19 @@ const { monthlyPayment, totalPaid } = useMonthlyPayment(
     5,
     25,
 );
-
 </script>
 
 <template>
     <span class="text-foreground">
         {{ listing.street }} {{ listing.street_nr }},
         <span class="text-muted-foreground">{{ listing.city }}</span>
-        <p> Monthly Payment 
-            <ListingPrice :price=monthlyPayment />
+        <p>
+            Monthly Payment
+            <ListingPrice :price="monthlyPayment" />
         </p>
-        <p> Total to Paid
-            <ListingPrice :price=totalPaid />
-        </p>  
+        <p>
+            Total to Paid
+            <ListingPrice :price="totalPaid" />
+        </p>
     </span>
 </template>

@@ -14,13 +14,12 @@ const props = defineProps<{
     listings: Paginated<Listing>;
     filters?: Partial<ListingFilters>;
 }>();
-
 </script>
 
 <template>
     <Head title="Ogłoszenia" />
 
-    <Filters :filters="filters"/>
+    <Filters :filters="filters" />
 
     <div
         v-for="listing in listings.data"

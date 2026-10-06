@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Listing;
 use App\Models\User;
-use Database\Factories\ListingFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'role' => 'admin'
+            'role' => 'admin',
         ]);
 
         $user->listings()->saveMany(Listing::factory(10)->make());
@@ -28,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $user2 = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test2@example.com',
-            'role' => 'employee'
+            'role' => 'employee',
         ]);
     }
 }

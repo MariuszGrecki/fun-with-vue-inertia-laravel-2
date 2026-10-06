@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\Listing;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use \App\Models\Listing;
 
 return new class extends Migration
 {
@@ -19,7 +19,6 @@ return new class extends Migration
                 Listing::class
             )->constrained('listings');
             $table->string('filename');
-
 
         });
     }

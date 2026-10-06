@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { router } from '@inertiajs/vue3';
 import { index } from '@/routes/realtor/listing';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -46,12 +45,13 @@ watchDebounced(
         ),
     { debounce: 300 },
 );
-
 </script>
 
 <template>
     <form>
-        <div class="border-border bg-card mt-4 mb-8 flex flex-wrap items-center gap-2 rounded-lg border p-3">
+        <div
+            class="border-border bg-card mt-4 mb-8 flex flex-wrap items-center gap-2 rounded-lg border p-3"
+        >
             <div class="flex items-center gap-2">
                 <Checkbox id="deleted" v-model="filterForm.deleted" />
                 <Label for="deleted" class="font-normal">Deleted</Label>

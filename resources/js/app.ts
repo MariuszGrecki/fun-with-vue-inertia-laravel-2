@@ -30,4 +30,3 @@ void createInertiaApp({
 
 initializeFlashToast();
 initializeTheme();
-

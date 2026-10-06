@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Listing;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ListingPolicy
 {
@@ -24,7 +23,7 @@ class ListingPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Listing $listing): bool
+    public function view(?User $user, Listing $listing): bool
     {
         return true;
     }

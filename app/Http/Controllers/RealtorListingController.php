@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RealtorListingRequest;
 use App\Http\Requests\UpdateRealtorListingRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Models\Listing;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class RealtorListingController extends Controller
 {
-    public function index(RealtorListingRequest $request)
+    public function index(RealtorListingRequest $request): Response
     {
         $filters = $request->validated();
 
@@ -24,12 +25,12 @@ class RealtorListingController extends Controller
         return inertia('Realtor/Index',
             [
                 'filters' => $filters,
-                'listings' => $query
+                'listings' => $query,
             ]
         );
     }
 
-    public function destroy(Listing $listing)
+    public function destroy(Listing $listing): RedirectResponse
     {
         Gate::authorize('delete', $listing);
 
@@ -43,7 +44,7 @@ class RealtorListingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Listing $listing)
+    public function edit(Listing $listing): Response
     {
         Gate::authorize('update', $listing);
 
@@ -58,7 +59,7 @@ class RealtorListingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRealtorListingRequest $request, Listing $listing)
+    public function update(UpdateRealtorListingRequest $request, Listing $listing): RedirectResponse
     {
         Gate::authorize('update', $listing);
 
@@ -69,7 +70,8 @@ class RealtorListingController extends Controller
         return redirect()->route('realtor.listing.index');
     }
 
-    public function restore(Listing $listing) {
+    public function restore(Listing $listing): RedirectResponse
+    {
         Gate::authorize('restore', $listing);
 
         $listing->restore();

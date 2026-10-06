@@ -35,7 +35,7 @@ return new class extends Migration
         // });
 
         Schema::dropColumns('listings', [
-            'beds', 'baths', 'area', 'city', 'code', 'street', 'street_nr', 'price'
+            'beds', 'baths', 'area', 'city', 'code', 'street', 'street_nr', 'price',
         ]);
     }
 };

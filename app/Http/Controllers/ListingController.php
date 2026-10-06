@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Listing;
 use App\Http\Requests\ListingRequest;
+use App\Models\Listing;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ListingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $filters = $request->only(['priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo']);
 
@@ -26,7 +28,7 @@ class ListingController extends Controller
                 'filters' => $filters,
                 'listings' => $query
                     ->paginate(5)
-                    ->withQueryString()
+                    ->withQueryString(),
             ]
         );
     }
@@ -34,7 +36,7 @@ class ListingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         Gate::authorize('create', Listing::class);
 
@@ -44,7 +46,7 @@ class ListingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ListingRequest $request)
+    public function store(ListingRequest $request): RedirectResponse
     {
         Gate::authorize('create', Listing::class);
 
@@ -58,12 +60,12 @@ class ListingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Listing $listing)
+    public function show(Listing $listing): Response
     {
         Gate::authorize('view', $listing);
 
         $listing->load(['images']);
-        
+
         return inertia(
             'Listing/Show',
             [

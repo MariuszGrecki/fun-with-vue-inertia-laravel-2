@@ -1,5 +1,5 @@
-import { ref, computed, toValue } from 'vue';
-import { MaybeRefOrGetter } from "vue";
+import { computed, toValue } from 'vue';
+import { MaybeRefOrGetter } from 'vue';
 
 export function useMonthlyPayment(
     price: MaybeRefOrGetter<number>,
@@ -22,10 +22,12 @@ export function useMonthlyPayment(
         return (
             (principal * monthlyInterest) /
             (1 - Math.pow(1 + monthlyInterest, -months))
-        ); 
-        })
+        );
+    });
 
-    const totalPaid = computed(() => toValue(duration) * 12 * monthlyPayment.value)
+    const totalPaid = computed(
+        () => toValue(duration) * 12 * monthlyPayment.value,
+    );
 
     return { monthlyPayment, totalPaid };
 }

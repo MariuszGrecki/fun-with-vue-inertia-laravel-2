@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\AuthRequest;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class AuthController extends Controller
 {
     /**
      * Show the login form.
      */
-    public function create()
+    public function create(): Response
     {
         return inertia('MyAuth/Login');
     }
@@ -21,7 +23,7 @@ class AuthController extends Controller
     /**
      * Log the user in.
      */
-    public function store(AuthRequest $request)
+    public function store(AuthRequest $request): RedirectResponse
     {
         if (! Auth::attempt($request->validated(), $request->boolean('remember'))) {
             throw ValidationException::withMessages([
@@ -39,7 +41,7 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request): RedirectResponse
     {
         Auth::logout();
 

@@ -6,7 +6,6 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-
 class RealtorListingRequest extends FormRequest
 {
     /**
@@ -19,7 +18,7 @@ class RealtorListingRequest extends FormRequest
         return [
             'deleted' => ['boolean'],
             'by' => ['sometimes', Rule::in(['created_at', 'price'])],
-            'order' => ['sometimes',  Rule::in(['asc', 'desc'])]
+            'order' => ['sometimes',  Rule::in(['asc', 'desc'])],
         ];
     }
 

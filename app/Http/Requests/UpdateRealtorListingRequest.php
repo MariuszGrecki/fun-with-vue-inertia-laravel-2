@@ -22,7 +22,7 @@ class UpdateRealtorListingRequest extends FormRequest
             'code' => ['required', 'string', 'regex:/^[0-9]{2}-[0-9]{3}$/'],
             'street' => ['required', 'string'],
             'street_nr' => ['required', 'string'],
-            'price' => ['required', 'numeric', 'min:1']
+            'price' => ['required', 'numeric', 'min:1'],
         ];
     }
 }

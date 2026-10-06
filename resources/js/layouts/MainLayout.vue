@@ -14,11 +14,12 @@ const user = computed(() => page.props.auth.user);
 
 const navLink =
     'text-muted-foreground hover:bg-accent hover:text-foreground rounded-md px-2.5 py-1.5 text-sm font-medium whitespace-nowrap transition-colors';
-
 </script>
 
 <template>
-    <div class="bg-background text-foreground mx-auto min-h-screen max-w-4xl px-6 py-6">
+    <div
+        class="bg-background text-foreground mx-auto min-h-screen max-w-4xl px-6 py-6"
+    >
         <nav class="border-border flex items-center gap-2 border-b pb-4">
             <div class="flex items-center gap-1">
                 <Link href="/" :class="navLink">Home</Link>
@@ -37,10 +38,22 @@ const navLink =
 
                 <button
                     type="button"
-                    :title="resolvedAppearance === 'dark' ? 'Switch to light' : 'Switch to dark'"
-                    :aria-label="resolvedAppearance === 'dark' ? 'Switch to light' : 'Switch to dark'"
+                    :title="
+                        resolvedAppearance === 'dark'
+                            ? 'Switch to light'
+                            : 'Switch to dark'
+                    "
+                    :aria-label="
+                        resolvedAppearance === 'dark'
+                            ? 'Switch to light'
+                            : 'Switch to dark'
+                    "
                     class="border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring/50 inline-flex size-8 shrink-0 items-center justify-center rounded-md border transition-colors outline-none focus-visible:ring-[3px]"
-                    @click="updateAppearance(resolvedAppearance === 'dark' ? 'light' : 'dark')"
+                    @click="
+                        updateAppearance(
+                            resolvedAppearance === 'dark' ? 'light' : 'dark',
+                        )
+                    "
                 >
                     <Sun v-if="resolvedAppearance === 'dark'" class="size-4" />
                     <Moon v-else class="size-4" />
@@ -50,7 +63,9 @@ const navLink =
 
                 <div v-if="user" class="flex items-center gap-2">
                     <UserInfo :user="user" />
-                    <Link href="/realtor/listing" :class="navLink">My Listings</Link>
+                    <Link href="/realtor/listing" :class="navLink"
+                        >My Listings</Link
+                    >
                     <Link
                         :href="logout()"
                         as="button"
@@ -72,4 +87,3 @@ const navLink =
         <Toaster />
     </div>
 </template>
-

@@ -37,8 +37,12 @@ function remove() {
 
 <template>
     <div class="mx-auto max-w-3xl">
-        <header class="mt-6 flex flex-wrap items-baseline justify-between gap-3">
-            <h1 class="text-foreground text-2xl font-semibold tracking-tight">Your listings</h1>
+        <header
+            class="mt-6 flex flex-wrap items-baseline justify-between gap-3"
+        >
+            <h1 class="text-foreground text-2xl font-semibold tracking-tight">
+                Your listings
+            </h1>
             <span class="text-muted-foreground text-sm tabular-nums">
                 {{ listings.data.length }}
                 {{ listings.data.length === 1 ? 'listing' : 'listings' }}
@@ -49,11 +53,13 @@ function remove() {
             <RealtorFilters :filters="filters" />
         </section>
 
-        <section class="border-border bg-card divide-border mt-4 divide-y rounded-lg border">
+        <section
+            class="border-border bg-card divide-border mt-4 divide-y rounded-lg border"
+        >
             <article
                 v-for="listing in listings.data"
                 :key="listing.id"
-                class="hover:bg-accent/40 flex flex-wrap items-center gap-4 px-5 py-4 transition-colors first:rounded-t-lg last:rounded-b-lg "
+                class="hover:bg-accent/40 flex flex-wrap items-center gap-4 px-5 py-4 transition-colors first:rounded-t-lg last:rounded-b-lg"
                 :class="{ 'opacity-50': listing.deleted_at }"
             >
                 <div class="min-w-0 grow space-y-1.5">
@@ -61,14 +67,22 @@ function remove() {
                         <ListingPrice :price="listing.price" />
                     </div>
 
-                    <div class="text-muted-foreground flex flex-wrap items-center gap-x-2 text-xs">
-                        <span class="bg-muted rounded px-1.5 py-0.5 tabular-nums">
+                    <div
+                        class="text-muted-foreground flex flex-wrap items-center gap-x-2 text-xs"
+                    >
+                        <span
+                            class="bg-muted rounded px-1.5 py-0.5 tabular-nums"
+                        >
                             {{ listing.beds }} beds
                         </span>
-                        <span class="bg-muted rounded px-1.5 py-0.5 tabular-nums">
+                        <span
+                            class="bg-muted rounded px-1.5 py-0.5 tabular-nums"
+                        >
                             {{ listing.baths }} baths
                         </span>
-                        <span class="bg-muted rounded px-1.5 py-0.5 tabular-nums">
+                        <span
+                            class="bg-muted rounded px-1.5 py-0.5 tabular-nums"
+                        >
                             {{ listing.area }} m²
                         </span>
                         <span
@@ -131,7 +145,7 @@ function remove() {
                 Nie masz jeszcze żadnych ogłoszeń.
             </p>
         </section>
-            <Pagination :paginator="listings" />
+        <Pagination :paginator="listings" />
     </div>
     <ConfirmDialog
         :open="pending !== null"

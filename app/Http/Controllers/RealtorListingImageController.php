@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use App\Models\ListingImage;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class RealtorListingImageController extends Controller
 {
-    public function create(Listing $listing)
+    public function create(Listing $listing): Response
     {
         $listing->load(['images']);
 
@@ -22,7 +24,7 @@ class RealtorListingImageController extends Controller
         );
     }
 
-    public function store(Listing $listing, Request $request)
+    public function store(Listing $listing, Request $request): RedirectResponse
     {
         $request->validate([
             'images' => 'required|array',
@@ -48,7 +50,7 @@ class RealtorListingImageController extends Controller
         return redirect()->back();
     }
 
-    public function destroy(Listing $listing, ListingImage $image)
+    public function destroy(Listing $listing, ListingImage $image): RedirectResponse
     {
         Storage::disk('public')->delete($image->filename);
         $image->delete();

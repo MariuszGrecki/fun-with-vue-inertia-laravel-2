@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { useForm } from '@inertiajs/vue3';
 import type { ListingFilters } from '@/types';
 import { index } from '@/routes/listing';
@@ -44,12 +43,13 @@ const clear = () => {
     filterForm.reset();
     visit();
 };
-
 </script>
 
 <template>
     <form action="" @submit.prevent="filter">
-        <div class="border-border bg-card mt-4 mb-8 flex flex-wrap items-center gap-2 rounded-lg border p-3">
+        <div
+            class="border-border bg-card mt-4 mb-8 flex flex-wrap items-center gap-2 rounded-lg border p-3"
+        >
             <div class="flex flex-nowrap items-center">
                 <input
                     v-model.number="filterForm.priceFrom"

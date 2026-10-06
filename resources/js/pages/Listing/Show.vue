@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import type { Listing } from '@/types';
@@ -11,7 +10,6 @@ const props = defineProps<{
 }>();
 
 const activeIndex = ref<number>(0);
-
 </script>
 
 <template>
@@ -19,7 +17,9 @@ const activeIndex = ref<number>(0);
 
     <div class="mt-6 grid gap-4 lg:grid-cols-[2fr_1fr]">
         <div v-if="listing.images?.length" class="space-y-3">
-            <div class="border-border bg-muted aspect-[4/3] overflow-hidden rounded-lg border">
+            <div
+                class="border-border bg-muted aspect-[4/3] overflow-hidden rounded-lg border"
+            >
                 <img
                     :src="listing.images[activeIndex].src"
                     alt=""
@@ -27,7 +27,10 @@ const activeIndex = ref<number>(0);
                 />
             </div>
 
-            <ul v-if="listing.images.length > 1" class="grid grid-cols-5 gap-2 sm:grid-cols-6">
+            <ul
+                v-if="listing.images.length > 1"
+                class="grid grid-cols-5 gap-2 sm:grid-cols-6"
+            >
                 <li v-for="(image, index) in listing.images" :key="image.id">
                     <button
                         type="button"
@@ -39,7 +42,11 @@ const activeIndex = ref<number>(0);
                         "
                         @click="activeIndex = index"
                     >
-                        <img :src="image.src" alt="" class="size-full object-cover" />
+                        <img
+                            :src="image.src"
+                            alt=""
+                            class="size-full object-cover"
+                        />
                     </button>
                 </li>
             </ul>
@@ -56,7 +63,10 @@ const activeIndex = ref<number>(0);
             <div class="border-border rounded-lg border px-5 py-4">
                 <p class="text-muted-foreground text-sm">Basic info</p>
 
-                <ListingPrice :price="listing.price" class="mt-1 block text-2xl" />
+                <ListingPrice
+                    :price="listing.price"
+                    class="mt-1 block text-2xl"
+                />
 
                 <p class="text-foreground mt-1 text-sm">
                     <span class="font-semibold">{{ listing.beds }}</span> bds
@@ -72,7 +82,7 @@ const activeIndex = ref<number>(0);
                 </p>
             </div>
 
-            <ListingOffer :price="listing.price"/>
+            <ListingOffer :price="listing.price" />
         </div>
     </div>
 </template>

@@ -58,7 +58,6 @@ function deleteImage(image: ListingImage) {
 function imageError(index: number): string | undefined {
     return (form.errors as Record<string, string>)[`images.${index}`];
 }
-
 </script>
 
 <template>
@@ -96,12 +95,19 @@ function imageError(index: number): string | undefined {
             />
         </label>
 
-        <ul v-if="previews.length" class="grid grid-cols-3 gap-3 sm:grid-cols-4">
+        <ul
+            v-if="previews.length"
+            class="grid grid-cols-3 gap-3 sm:grid-cols-4"
+        >
             <li
                 v-for="(url, index) in previews"
                 :key="url"
                 class="relative aspect-square overflow-hidden rounded-md border"
-                :class="imageError(index) ? 'border-destructive border-2' : 'border-border'"
+                :class="
+                    imageError(index)
+                        ? 'border-destructive border-2'
+                        : 'border-border'
+                "
             >
                 <img
                     :src="url"
@@ -123,13 +129,17 @@ function imageError(index: number): string | undefined {
             v-if="form.hasErrors"
             class="bg-destructive/10 text-destructive space-y-1 rounded-md px-4 py-3 text-sm"
         >
-            <li v-for="(message, key) in form.errors" :key="key">{{ message }}</li>
+            <li v-for="(message, key) in form.errors" :key="key">
+                {{ message }}
+            </li>
         </ul>
 
         <div v-if="form.progress" class="space-y-1.5">
             <div class="text-muted-foreground flex justify-between text-xs">
                 <span>Uploading…</span>
-                <span class="tabular-nums">{{ form.progress.percentage }}%</span>
+                <span class="tabular-nums"
+                    >{{ form.progress.percentage }}%</span
+                >
             </div>
             <div class="bg-muted h-2 overflow-hidden rounded-full">
                 <div
@@ -143,7 +153,10 @@ function imageError(index: number): string | undefined {
             <span class="text-muted-foreground text-sm">
                 Selected: {{ form.images.length }}
             </span>
-            <Button type="submit" :disabled="form.processing || !form.images.length">
+            <Button
+                type="submit"
+                :disabled="form.processing || !form.images.length"
+            >
                 <Spinner v-if="form.processing" />
                 Upload images
             </Button>

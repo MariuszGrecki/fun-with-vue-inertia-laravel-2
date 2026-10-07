@@ -60,7 +60,7 @@ class ListingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Listing $listing): Response
+    public function show(Listing $listing, Request $request): Response
     {
         Gate::authorize('view', $listing);
 
@@ -70,6 +70,11 @@ class ListingController extends Controller
             'Listing/Show',
             [
                 'listing' => $listing,
+                'offers' => $request->user()
+                    ?->offers()
+                    ->where('listing_id', $listing->id)
+                    ->latest()
+                    ->get(['id', 'amount', 'created_at']) ?? [],
             ]
         );
     }

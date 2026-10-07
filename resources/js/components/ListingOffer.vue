@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { PrinterCheck } from '@lucide/vue';
 import ListingPrice from './ListingPrice.vue';
+import MakeOffer from '@/pages/Listing/Offer/MakeOffer.vue';
 import { ref, computed } from 'vue';
 import { useMonthlyPayment } from '@/composables/MortgageCalculator.js';
 
 const props = defineProps<{
     price: number;
+    listingId: number;
 }>();
 
 const interestRate = ref<number>(5);
@@ -57,5 +59,9 @@ const { monthlyPayment, totalPaid } = useMonthlyPayment(
         <ListingPrice :price="monthlyPayment"></ListingPrice>
         <p class="text-muted-foreground text-sm">Total to paid</p>
         <ListingPrice :price="totalPaid"></ListingPrice>
+
+        <div class="border-border mt-5 border-t pt-4">
+            <MakeOffer :price="price" :listing-id="listingId" />
+        </div>
     </div>
 </template>

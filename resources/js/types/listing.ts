@@ -6,6 +6,12 @@ export interface ListingImage {
     created_at: string;
     updated_at: string;
 }
+export interface Offer {
+    id: number;
+    amount: number;
+    created_at: string;
+}
+
 export interface Listing {
     id: number;
     beds: number;

@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static Builder<Listing> mostRecent()
  * @method static Builder<Listing> filter(array<string, mixed> $filters)
+ * @method static Builder<Listing> notSold()
  */
 class Listing extends Model
 {
@@ -62,6 +64,14 @@ class Listing extends Model
     }
 
     /**
+     * @return HasOne<Offer, $this>
+     */
+    public function acceptedOffer(): HasOne
+    {
+        return $this->hasOne(Offer::class, 'listing_id')->whereNotNull('accepted_at');
+    }
+
+    /**
      * @param  Builder<Listing>  $query
      * @return Builder<Listing>
      */
@@ -69,6 +79,16 @@ class Listing extends Model
     protected function mostRecent(Builder $query): Builder
     {
         return $query->orderByDesc('created_at');
+    }
+
+    /**
+     * @param  Builder<Listing>  $query
+     * @return Builder<Listing>
+     */
+    #[Scope]
+    protected function notSold(Builder $query): Builder
+    {
+        return $query->whereDoesntHave('acceptedOffer');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ListingRequest;
 use App\Models\Listing;
+use App\Models\Offer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -20,7 +21,8 @@ class ListingController extends Controller
         $filters = $request->only(['priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo']);
 
         $query = Listing::mostRecent()
-            ->filter($filters);
+            ->filter($filters)
+            ->notSold();
 
         return inertia(
             'Listing/Index',
@@ -66,15 +68,20 @@ class ListingController extends Controller
 
         $listing->load(['images']);
 
+        $isSold = $listing->acceptedOffer()->exists();
+
         return inertia(
             'Listing/Show',
             [
                 'listing' => $listing,
+                'isSold' => $isSold,
+                'isOwner' => $request->user()?->id === $listing->user_id,
                 'offers' => $request->user()
-                    ?->offers()
-                    ->where('listing_id', $listing->id)
-                    ->latest()
-                    ->get(['id', 'amount', 'created_at']) ?? [],
+                    ? Offer::createdByMe()
+                        ->where('listing_id', $listing->id)
+                        ->latest()
+                        ->get(['id', 'amount', 'created_at'])
+                    : [],
             ]
         );
     }

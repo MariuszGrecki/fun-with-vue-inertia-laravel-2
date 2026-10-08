@@ -18,7 +18,8 @@ class RealtorListingController extends Controller
 
         $query = $request->user()->listings()
             ->filter($request->validated())
-            ->withCount('images')
+            ->withCount(['images', 'offers'])
+            ->withExists('acceptedOffer')
             ->paginate(5)
             ->withQueryString();
 
@@ -62,6 +63,12 @@ class RealtorListingController extends Controller
     public function update(UpdateRealtorListingRequest $request, Listing $listing): RedirectResponse
     {
         Gate::authorize('update', $listing);
+
+        if ($listing->acceptedOffer()->exists()) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => 'This listing is already sold.']);
+
+            return redirect()->back();
+        }
 
         $listing->update($request->validated());
 

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AcceptOfferController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ListingOfferController;
 use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\RealtorListingImageController;
+use App\Http\Controllers\RealtorListingOfferController;
 use App\Http\Controllers\UserAccountController;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +61,11 @@ Route::prefix('realtor')
             ->withTrashed([]);
         Route::resource('listing.image', RealtorListingImageController::class)
             ->only(['create', 'store', 'destroy']);
+        Route::resource('listing.offer', RealtorListingOfferController::class)
+            ->only(['index']);
+        Route::post('listing/{listing}/offer/{offer}/accept', AcceptOfferController::class)
+            ->name('listing.offer.accept')
+            ->scopeBindings();
     });
 
 require __DIR__.'/settings.php';

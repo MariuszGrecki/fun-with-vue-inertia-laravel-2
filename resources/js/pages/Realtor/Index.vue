@@ -9,6 +9,7 @@ import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import { Button } from '@/components/ui/button';
 import { destroy, edit, restore } from '@/routes/realtor/listing';
 import { create as createImage } from '@/routes/realtor/listing/image';
+import { index as offerIndex } from '@/routes/realtor/listing/offer';
 import RealtorFilters from './Index/Components/RealtorFilters.vue';
 import Pagination from '@/components/Pagination.vue';
 
@@ -84,6 +85,18 @@ function remove() {
                             class="bg-muted rounded px-1.5 py-0.5 tabular-nums"
                         >
                             {{ listing.area }} m²
+                        </span>
+                        <Link
+                            :href="offerIndex(listing.id)"
+                            class="bg-muted rounded px-1.5 py-0.5 tabular-nums"
+                        >
+                            {{ listing.offers_count }} offers
+                        </Link>
+                        <span
+                            v-if="listing.accepted_offer_exists"
+                            class="bg-destructive/10 text-destructive rounded px-1.5 py-0.5 text-xs font-medium"
+                        >
+                            Sold
                         </span>
                         <span
                             v-if="listing.deleted_at"

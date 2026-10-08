@@ -9,7 +9,13 @@ export interface ListingImage {
 export interface Offer {
     id: number;
     amount: number;
+    accepted_at?: string | null;
     created_at: string;
+    bidder?: {
+        id: number;
+        name: string;
+        email: string;
+    };
 }
 
 export interface Listing {
@@ -27,6 +33,8 @@ export interface Listing {
     deleted_at: string | null;
     images?: ListingImage[];
     images_count?: number;
+    offers_count?: number;
+    accepted_offer_exists?: boolean;
 }
 
 export type ListingForm = Omit<

@@ -19,6 +19,8 @@ declare module '@inertiajs/core' {
             name: string;
             auth: Auth;
             sidebarOpen: boolean;
+            unreadNotificationsCount: number;
+            recentNotifications: AppNotification[];
             [key: string]: unknown;
         };
     }
@@ -31,3 +33,5 @@ declare module 'vue' {
         $headManager: ReturnType<typeof createHeadManager>;
     }
 }
+
+

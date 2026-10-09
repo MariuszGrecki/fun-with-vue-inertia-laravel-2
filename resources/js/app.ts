@@ -4,6 +4,11 @@ import type { DefineComponent } from 'vue';
 import { initializeTheme } from '@/composables/useAppearance';
 import { initializeFlashToast } from '@/lib/flashToast';
 import MainLayout from './layouts/MainLayout.vue';
+import { configureEcho } from '@laravel/echo-vue';
+
+configureEcho({
+    broadcaster: 'reverb',
+});
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

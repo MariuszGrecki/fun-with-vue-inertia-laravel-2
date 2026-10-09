@@ -30,13 +30,16 @@
         "vue-sonner": "^2.0.0"
     },
     "devDependencies": {
+        "@laravel/echo-vue": "^2.6.1",
         "@laravel/vite-plugin-wayfinder": "^0.1.3",
         "@tailwindcss/vite": "^4.1.11",
         "@types/node": "^22.13.5",
         "@vitejs/plugin-vue": "^6.0.0",
         "concurrently": "^10.0.3",
+        "laravel-echo": "^2.6.1",
         "prettier": "^3.9.9",
         "prettier-plugin-tailwindcss": "^0.8.1",
+        "pusher-js": "^8.6.0",
         "typescript": "^5.2.2",
         "vite": "^8.0.0",
         "vite-plugin-vue-devtools": "^8.2.1",

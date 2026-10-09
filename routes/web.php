@@ -9,6 +9,7 @@ use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\RealtorListingImageController;
 use App\Http\Controllers\RealtorListingOfferController;
 use App\Http\Controllers\UserAccountController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -22,6 +23,12 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('listing', ListingController::class)
         ->only(['create', 'store']);
+
+    Route::get('notifications', [NotificationController::class, 'index'])
+        ->name('notifications.index');
+
+    Route::get('notifications/{notification}/read', [NotificationController::class, 'read'])
+        ->name('notifications.read');
 });
 
 Route::resource('listing', ListingController::class)

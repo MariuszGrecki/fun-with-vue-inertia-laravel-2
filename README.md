@@ -14,6 +14,9 @@ docker compose up -d
 ./vendor/bin/sail npm run dev
 ./vendor/bin/sail restart
 
+# Podgląd Reverba
+ ./vendor/bin/sail artisan reverb:start --debug
+
 # zatrzymaj projekt
 docker compose down
 ```

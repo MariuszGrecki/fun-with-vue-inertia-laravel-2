@@ -35,14 +35,22 @@ defineProps<{
                     class="flex items-center justify-between gap-4 px-5 py-4"
                 >
                     <span class="text-foreground text-sm">
-                        <span class="font-medium">{{ notification.data.bidder_name }}</span>
+                        <span class="font-medium">{{
+                            notification.data.bidder_name
+                        }}</span>
                         made an offer
                     </span>
 
                     <span class="flex items-center gap-3">
                         <ListingPrice :price="notification.data.amount" />
-                        <span class="text-muted-foreground text-xs tabular-nums">
-                            {{ new Date(notification.created_at).toLocaleDateString('pl-PL') }}
+                        <span
+                            class="text-muted-foreground text-xs tabular-nums"
+                        >
+                            {{
+                                new Date(
+                                    notification.created_at,
+                                ).toLocaleDateString('pl-PL')
+                            }}
                         </span>
                     </span>
                 </Link>

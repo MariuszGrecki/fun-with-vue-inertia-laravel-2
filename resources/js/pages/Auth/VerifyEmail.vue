@@ -23,8 +23,8 @@ function resend() {
         </h1>
 
         <p class="text-muted-foreground text-sm">
-            We sent a verification link to your email address. Click the link
-            to continue.
+            We sent a verification link to your email address. Click the link to
+            continue.
         </p>
 
         <Button type="button" :disabled="form.processing" @click="resend">

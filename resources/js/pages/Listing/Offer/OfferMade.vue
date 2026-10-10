@@ -8,10 +8,7 @@ defineProps<{
 </script>
 
 <template>
-    <div
-        v-if="offers.length"
-        class="border-border rounded-lg border px-5 py-4"
-    >
+    <div v-if="offers.length" class="border-border rounded-lg border px-5 py-4">
         <p class="text-muted-foreground text-sm">Your offers</p>
 
         <ul class="mt-2 space-y-1.5 text-sm">

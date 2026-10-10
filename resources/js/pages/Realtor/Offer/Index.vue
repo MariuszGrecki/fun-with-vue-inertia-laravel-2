@@ -15,11 +15,15 @@ const isSold = computed(() => props.offers.some((offer) => offer.accepted_at));
 const processing = ref(false);
 
 function acceptOffer(offer: Offer) {
-    router.post(accept({ listing: props.listing.id, offer: offer.id }), {}, {
-        preserveScroll: true,
-        onStart: () => (processing.value = true),
-        onFinish: () => (processing.value = false),
-    });
+    router.post(
+        accept({ listing: props.listing.id, offer: offer.id }),
+        {},
+        {
+            preserveScroll: true,
+            onStart: () => (processing.value = true),
+            onFinish: () => (processing.value = false),
+        },
+    );
 }
 </script>
 
@@ -58,7 +62,11 @@ function acceptOffer(offer: Offer) {
                     <div class="text-right">
                         <ListingPrice :price="offer.amount" />
                         <p class="text-muted-foreground text-xs tabular-nums">
-                            {{ new Date(offer.created_at).toLocaleDateString('pl-PL') }}
+                            {{
+                                new Date(offer.created_at).toLocaleDateString(
+                                    'pl-PL',
+                                )
+                            }}
                         </p>
                     </div>
 
@@ -81,8 +89,6 @@ function acceptOffer(offer: Offer) {
             </li>
         </ul>
 
-        <p v-else class="text-muted-foreground mt-6 text-sm">
-            No offers yet.
-        </p>
+        <p v-else class="text-muted-foreground mt-6 text-sm">No offers yet.</p>
     </div>
 </template>

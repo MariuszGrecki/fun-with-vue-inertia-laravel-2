@@ -10,8 +10,7 @@ import { Head } from '@inertiajs/vue3';
             Welcome
         </h1>
         <p class="text-muted-foreground mt-3">
-            Find the home you're looking for — browse listings and make
-            offers.
+            Find the home you're looking for — browse listings and make offers.
         </p>
     </main>
 </template>

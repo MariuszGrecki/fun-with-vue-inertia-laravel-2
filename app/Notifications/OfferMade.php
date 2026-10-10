@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use App\Models\Offer;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueueAfterCommit;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -17,8 +17,7 @@ class OfferMade extends Notification implements ShouldQueueAfterCommit
      */
     public function __construct(
         public readonly Offer $offer,
-    )
-    {}
+    ) {}
 
     /**
      * Get the notification's delivery channels.
@@ -37,7 +36,7 @@ class OfferMade extends Notification implements ShouldQueueAfterCommit
     {
         return (new MailMessage)
             ->subject('New offer on your listing')
-            ->line($this->offer->bidder->name . ' made an offer of ' . $this->offer->amount . ' zł.')
+            ->line($this->offer->bidder->name.' made an offer of '.$this->offer->amount.' zł.')
             ->action('View offer', route('realtor.listing.offer.index', $this->offer->listing_id));
     }
 

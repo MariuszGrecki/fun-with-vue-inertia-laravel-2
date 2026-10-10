@@ -6,11 +6,11 @@ use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ListingOfferController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\RealtorListingImageController;
 use App\Http\Controllers\RealtorListingOfferController;
 use App\Http\Controllers\UserAccountController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 

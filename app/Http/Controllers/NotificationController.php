@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Inertia\Response;
-use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
+use Inertia\Response;
 
 class NotificationController extends Controller
 {
@@ -24,5 +24,4 @@ class NotificationController extends Controller
 
         return redirect()->route('realtor.listing.offer.index', $notification->data['listing_id']);
     }
-
 }

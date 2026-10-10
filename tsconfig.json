@@ -124,7 +124,5 @@
         "resources/js/**/*.tsx",
         "resources/js/**/*.vue"
     ],
-    "exclude": [
-        "resources/js/actions/Illuminate/**"
-    ]
+    "exclude": ["resources/js/actions/Illuminate/**"]
 }

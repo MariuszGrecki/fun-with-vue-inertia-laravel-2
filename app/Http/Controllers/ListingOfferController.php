@@ -27,11 +27,10 @@ class ListingOfferController extends Controller
         }
 
         DB::transaction(function () use ($listing, $request) {
-            $offer = $listing->offers()->save(
-                (new Offer(
-                $request->validate(['amount' => 'required|integer|min:1|max:200000'])
-            ))->bidder()->associate($request->user())
-            );
+            $offer = new Offer($request->validate(['amount' => 'required|integer|min:1|max:200000']));
+            $offer->listing()->associate($listing);
+            $offer->bidder()->associate($request->user());
+            $offer->save();
 
             $listing->owner->notify(new OfferMade($offer));
         });

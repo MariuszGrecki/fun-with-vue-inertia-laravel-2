@@ -4,9 +4,11 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use App\Models\Offer;
+use Illuminate\Contracts\Queue\ShouldQueueAfterCommit;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OfferMade extends Notification
+class OfferMade extends Notification implements ShouldQueueAfterCommit
 {
     use Queueable;
 
@@ -25,7 +27,18 @@ class OfferMade extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database', 'broadcast'];
+        return ['database', 'broadcast', 'mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     */
+    public function toMail(object $notifiable): MailMessage
+    {
+        return (new MailMessage)
+            ->subject('New offer on your listing')
+            ->line($this->offer->bidder->name . ' made an offer of ' . $this->offer->amount . ' zł.')
+            ->action('View offer', route('realtor.listing.offer.index', $this->offer->listing_id));
     }
 
     /**

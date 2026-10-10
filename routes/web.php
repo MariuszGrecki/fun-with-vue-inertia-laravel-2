@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AcceptOfferController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ListingOfferController;
@@ -10,17 +11,31 @@ use App\Http\Controllers\RealtorListingImageController;
 use App\Http\Controllers\RealtorListingOfferController;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
 });
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/hello', [IndexController::class, 'show']);
+Route::get('/hello', [IndexController::class, 'show']);
 
+Route::middleware('auth')->group(function () {
+    Route::get('email/verify', [EmailVerificationController::class, 'notice'])
+        ->name('verification.notice');
+
+    Route::post('email/verification-notification', [EmailVerificationController::class, 'send'])
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
+
+    Route::get('email/verify/{id}/{hash}', VerifyEmailController::class)
+        ->middleware(['signed', 'throttle:6,1'])
+        ->name('verification.verify');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('listing', ListingController::class)
         ->only(['create', 'store']);
 
@@ -35,7 +50,7 @@ Route::resource('listing', ListingController::class)
     ->only(['index', 'show']);
 
 Route::resource('listing.offer', ListingOfferController::class)
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->only(['store']);
 
 Route::middleware('guest')->group(function () {
@@ -59,7 +74,7 @@ Route::delete('my-logout', [AuthController::class, 'destroy'])
 
 Route::prefix('realtor')
     ->name('realtor.')
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->group(function () {
         Route::name('listing.restore')->put('listing/{listing}/restore', [RealtorListingController::class, 'restore'])
             ->withTrashed();

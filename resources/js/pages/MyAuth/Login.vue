@@ -20,6 +20,12 @@ function submit() {
         onFinish: () => form.reset('password'),
     });
 }
+
+function loginAsTestUser(email: string) {
+    form.email = email;
+    form.password = 'password';
+    submit();
+}
 </script>
 
 <template>
@@ -71,6 +77,28 @@ function submit() {
             <Spinner v-if="form.processing" />
             Log in
         </Button>
+
+        <div class="border-border flex gap-2 border-t pt-4">
+            <Button
+                type="button"
+                variant="outline"
+                class="flex-1"
+                :disabled="form.processing"
+                @click="loginAsTestUser('test@example.com')"
+            >
+                Log in as test user 1
+            </Button>
+            <Button
+                type="button"
+                variant="outline"
+                class="flex-1"
+                :disabled="form.processing"
+                @click="loginAsTestUser('test2@example.com')"
+            >
+                Log in as test user 2
+            </Button>
+        </div>
+
         <p class="text-muted-foreground text-center text-sm">
             Don't have an account?
             <Link

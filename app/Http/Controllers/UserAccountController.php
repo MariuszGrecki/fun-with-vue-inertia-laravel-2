@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserAccountRequest;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -25,6 +26,8 @@ class UserAccountController extends Controller
     public function store(UserAccountRequest $request): RedirectResponse
     {
         $user = User::create($request->validated());
+
+        event(new Registered($user));
 
         Auth::login($user);
 
